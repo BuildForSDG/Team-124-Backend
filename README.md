@@ -28,6 +28,14 @@ Talk about what problem this solves, what SDG(s) and SGD targets it addresses an
 
 Run `composer install` and `composer dump-autoload` to get started.
 
+Create `.env` file and copy all the contents from `.env.example` to it.
+
+In the `.env` file set the following database variables `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`
+
+Run `php artisan migrate` to run database migrations.
+
+Run `php artisan passport:install` to setup laravel passport.
+
 `index.php` is the entry to the project and source code should go into the `src` folder.
 
 All tests should be written in the test folder.
