@@ -6,3 +6,15 @@ composer.lock
 
 # php cs fixer cache file
 .php_cs.cache
+
+/node_modules
+/public/hot
+/public/storage
+/storage/*.key
+/.idea
+/.vagrant
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+.env
