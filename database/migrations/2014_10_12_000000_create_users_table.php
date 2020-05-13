@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('last_name');
             $table->string('address');
             $table->string('street_name');
-            $table->string('meter_No');
+            $table->string('meter_no');
             $table->string('email')->unique();
             $table->string('password');
             $table->rememberToken();

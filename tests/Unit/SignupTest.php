@@ -17,7 +17,7 @@ class SignupTest extends TestCase
             'last_name' => 'Test',
             'address' => 'Test',
             'street_name' => 'Test',
-            'meter_No' => '1',
+            'meter_no' => '1',
             'email' => 'test@test.com',
             'password' => '12345678'
         ];
@@ -33,7 +33,7 @@ class SignupTest extends TestCase
             'first_name' => 'Test',
             'address' => 'Test',
             'street_name' => 'Test',
-            'meter_No' => '1',
+            'meter_no' => '1',
             'email' => 'test@test.com',
             'password' => '12345678'
         ];
@@ -49,7 +49,7 @@ class SignupTest extends TestCase
             'first_name' => 'Test',
             'last_name' => 'Test',
             'street_name' => 'Test',
-            'meter_No' => '1',
+            'meter_no' => '1',
             'email' => 'test@test.com',
             'password' => '12345678'
         ];
@@ -65,7 +65,7 @@ class SignupTest extends TestCase
             'first_name' => 'Test',
             'last_name' => 'Test',
             'address' => 'Test',
-            'meter_No' => '1',
+            'meter_no' => '1',
             'email' => 'test@test.com',
             'password' => '12345678'
         ];
@@ -98,7 +98,7 @@ class SignupTest extends TestCase
             'last_name' => 'Test',
             'address' => 'Test',
             'street_name' => 'Test',
-            'meter_No' => '1',
+            'meter_no' => '1',
             'email' => 'test@test.com',
         ];
 
@@ -114,7 +114,7 @@ class SignupTest extends TestCase
             'last_name' => 'Test',
             'address' => 'Test',
             'street_name' => 'Test',
-            'meter_No' => '1',
+            'meter_no' => '1',
             'email' => 'test@test.com',
             'password' => '123456',
         ];
@@ -131,7 +131,7 @@ class SignupTest extends TestCase
             'last_name' => 'Test',
             'address' => 'Test',
             'street_name' => 'Test',
-            'meter_No' => '1',
+            'meter_no' => '1',
             'password' => '12345678',
         ];
 
@@ -147,7 +147,7 @@ class SignupTest extends TestCase
             'last_name' => 'Test',
             'address' => 'Test',
             'street_name' => 'Test',
-            'meter_No' => '1',
+            'meter_no' => '1',
             'password' => '12345678',
             'email' => 'test@test.com',
         ];
@@ -157,7 +157,7 @@ class SignupTest extends TestCase
         $user->last_name = $input['last_name'];
         $user->address = $input['address'];
         $user->street_name = $input['street_name'];
-        $user->meter_No = $input['meter_No'];
+        $user->meter_no = $input['meter_no'];
         $user->email = $input['email'];
         $user->password = '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm';
         $user->save();
@@ -176,7 +176,7 @@ class SignupTest extends TestCase
             'last_name' => 'Test',
             'address' => 'Test',
             'street_name' => 'Test',
-            'meter_No' => '1',
+            'meter_no' => '1',
             'password' => '12345678',
             'email' => 'test@test.com',
         ];
