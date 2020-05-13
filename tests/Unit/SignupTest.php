@@ -174,4 +174,23 @@ class SignupTest extends TestCase
         $response->assertStatus(400);
         $user->delete();
     }
+    
+    public function testSignupAPIPassesIfPOSTDataIsCorrect()
+    {
+        shell_exec('php artisan passport:install');
+        $input = [
+            'first_name' => 'Test',
+            'last_name' => 'Test',
+            'address' => 'Test',
+            'street_name' => 'Test',
+            'meter_No' => '1',
+            'password' => '12345678',
+            'email' => 'test@test.com',
+        ];
+
+        $response = $this->json('POST', '/api/v1/signup', $input);
+        $response->assertStatus(200);
+        
+        User::find(json_decode($response->getContent())->id)->delete();
+    }
 }
