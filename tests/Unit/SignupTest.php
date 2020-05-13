@@ -96,4 +96,20 @@ class SignupTest extends TestCase
         
         $response->assertStatus(400);
     }
+    
+    public function testSignupAPIFailsIfPasswordIsNotSent()
+    {
+        $input = [
+            'first_name' => 'Test',
+            'last_name' => 'Test',
+            'address' => 'Test',
+            'street_name' => 'Test',
+            'meter_No' => 1,
+            'email' => 'test@test.com',
+        ];
+
+        $response = $this->json('POST', '/api/v1/signup', $input);
+        
+        $response->assertStatus(400);
+    }
 }
