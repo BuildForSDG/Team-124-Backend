@@ -112,4 +112,21 @@ class SignupTest extends TestCase
         
         $response->assertStatus(400);
     }
+    
+    public function testSignupAPIFailsIfPasswordIsLessThanEightCharacters()
+    {
+        $input = [
+            'first_name' => 'Test',
+            'last_name' => 'Test',
+            'address' => 'Test',
+            'street_name' => 'Test',
+            'meter_No' => 1,
+            'email' => 'test@test.com',
+            'password' => '123456',
+        ];
+
+        $response = $this->json('POST', '/api/v1/signup', $input);
+        
+        $response->assertStatus(400);
+    }
 }
