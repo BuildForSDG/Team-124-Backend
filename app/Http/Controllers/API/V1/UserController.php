@@ -17,7 +17,7 @@ class UserController extends Controller
 
     public function signup(Request $request)
     {
-        $validator = $request->validate([
+        $request->validate([
           'first_name' => [
             'required',
             'string',
