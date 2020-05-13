@@ -15,4 +15,5 @@ use Illuminate\Http\Request;
 
 Route::group(['prefix' => 'v1'], function () {
     Route::post('signup', 'API\V1\UserController@signup');
+    Route::post('signin', 'API\V1\UserController@signin');
 });

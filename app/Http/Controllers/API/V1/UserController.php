@@ -78,4 +78,25 @@ class UserController extends Controller
 
         return response()->json($res, 200);
     }
+
+    public function signin(Request $request)
+    {
+        // Attempt to login using web auth guard
+        if (auth()->attempt(['email' => request('email'), 'password' => request('password')])) {
+            // If it succeeds generate and return api token
+            $user = auth()->user();
+            $userId = $user->id;
+            
+            $res['id'] = $user->id;
+            $res['first_name'] = $user->first_name;
+            $res['last_name'] = $user->last_name;
+            $res['email'] = $user->email;
+            $res['meter_No'] = $user->meter_No;
+            $res['token'] = $user->createToken('web-ui-api')->accessToken;
+
+            return response()->json($res, 200);
+        }
+
+        return response()->json(['error' => 'Incorrect email and password'], 401);
+    }
 }
