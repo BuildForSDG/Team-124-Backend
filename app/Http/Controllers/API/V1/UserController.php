@@ -8,6 +8,13 @@ use App\User;
 
 class UserController extends Controller
 {
+    protected $user;
+
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }
+
     public function signup(Request $request)
     {
         $validator = $request->validate([
@@ -48,7 +55,7 @@ class UserController extends Controller
           ],
         ]);
 
-        $res = $input = [
+        $res = [
           'first_name' => $request['first_name'],
           'email' => $request['email'],
           'last_name' => $request['last_name'],
@@ -57,11 +64,17 @@ class UserController extends Controller
           'meter_No' => $request['meter_No'],
         ];
 
-        $input['password'] = bcrypt($request['password']);
+        $this->user['password'] = bcrypt($request['password']);
+        $this->user['first_name'] = $request['first_name'];
+        $this->user['email'] = $request['email'];
+        $this->user['last_name'] = $request['last_name'];
+        $this->user['address'] = $request['address'];
+        $this->user['street_name'] = $request['street_name'];
+        $this->user['meter_No'] = $request['meter_No'];
 
-        $user = User::create($input);
-        $res['id'] = $user->id;
-        $res['token'] = $user->createToken('web-ui-api')->accessToken;
+        $this->user->save();
+        $res['id'] = $this->user->id;
+        $res['token'] = $this->user->createToken('web-ui-api')->accessToken;
 
         return response()->json($res, 200);
     }
