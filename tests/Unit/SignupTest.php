@@ -24,7 +24,7 @@ class SignupTest extends TestCase
 
         $response = $this->json('POST', '/api/v1/signup', $input);
         
-        $response->assertStatus(400);
+        $response->assertStatus(422);
     }
     
     public function testSignupAPIFailsIfLastNameIsNotSent()
@@ -40,7 +40,7 @@ class SignupTest extends TestCase
 
         $response = $this->json('POST', '/api/v1/signup', $input);
         
-        $response->assertStatus(400);
+        $response->assertStatus(422);
     }
     
     public function testSignupAPIFailsIfAddressIsNotSent()
@@ -56,7 +56,7 @@ class SignupTest extends TestCase
 
         $response = $this->json('POST', '/api/v1/signup', $input);
         
-        $response->assertStatus(400);
+        $response->assertStatus(422);
     }
     
     public function testSignupAPIFailsIfStreetNameIsNotSent()
@@ -72,7 +72,7 @@ class SignupTest extends TestCase
 
         $response = $this->json('POST', '/api/v1/signup', $input);
         
-        $response->assertStatus(400);
+        $response->assertStatus(422);
     }
     
     public function testSignupAPIFailsIfMeterNoIsNotSent()
@@ -88,7 +88,7 @@ class SignupTest extends TestCase
 
         $response = $this->json('POST', '/api/v1/signup', $input);
         
-        $response->assertStatus(400);
+        $response->assertStatus(422);
     }
     
     public function testSignupAPIFailsIfPasswordIsNotSent()
@@ -104,7 +104,7 @@ class SignupTest extends TestCase
 
         $response = $this->json('POST', '/api/v1/signup', $input);
         
-        $response->assertStatus(400);
+        $response->assertStatus(422);
     }
     
     public function testSignupAPIFailsIfPasswordIsLessThanEightCharacters()
@@ -121,7 +121,7 @@ class SignupTest extends TestCase
 
         $response = $this->json('POST', '/api/v1/signup', $input);
         
-        $response->assertStatus(400);
+        $response->assertStatus(422);
     }
     
     public function testSignupAPIFailsIfEmailIsNotSent()
@@ -137,21 +137,11 @@ class SignupTest extends TestCase
 
         $response = $this->json('POST', '/api/v1/signup', $input);
         
-        $response->assertStatus(400);
+        $response->assertStatus(422);
     }
     
     public function testSignupAPIFailsIfEmailAlreadyExist()
     {
-        $user = User::create([
-            'first_name' => 'Test',
-            'last_name' => 'Test',
-            'address' => 'Test',
-            'street_name' => 'Test',
-            'meter_No' => '1',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm',
-            'email' => 'test@test.com',
-        ]);
-
         $input = [
             'first_name' => 'Test',
             'last_name' => 'Test',
@@ -161,10 +151,20 @@ class SignupTest extends TestCase
             'password' => '12345678',
             'email' => 'test@test.com',
         ];
+        
+        $user = new User;
+        $user->first_name = $input['first_name'];
+        $user->last_name = $input['last_name'];
+        $user->address = $input['address'];
+        $user->street_name = $input['street_name'];
+        $user->meter_No = $input['meter_No'];
+        $user->email = $input['email'];
+        $user->password = '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm';
+        $user->save();
 
         $response = $this->json('POST', '/api/v1/signup', $input);
         
-        $response->assertStatus(400);
+        $response->assertStatus(422);
         $user->delete();
     }
     
