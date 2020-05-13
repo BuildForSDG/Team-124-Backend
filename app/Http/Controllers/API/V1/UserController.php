@@ -4,14 +4,13 @@ namespace App\Http\Controllers\API\V1;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Validator;
 use App\User;
 
 class UserController extends Controller
 {
     public function signup(Request $request)
     {
-        $validator = Validator::make($request->input(), [
+        $validator = $request->validate([
           'first_name' => [
             'required',
             'string',
@@ -48,12 +47,6 @@ class UserController extends Controller
             'string',
           ],
         ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-              'error' => $validator->errors(),
-            ], 400);
-        }
 
         $res = $input = [
           'first_name' => $request['first_name'],
