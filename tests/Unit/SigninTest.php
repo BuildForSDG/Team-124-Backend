@@ -57,4 +57,26 @@ class SigninTest extends TestCase
 
         $user->delete();
     }
+
+    public function testSigninFailsIfEmailIsNotCorrect()
+    {
+        $user = new User;
+        $user->first_name = 'Test';
+        $user->last_name = 'Test';
+        $user->address = 'Test';
+        $user->street_name = 'Test';
+        $user->meter_no = '1';
+        $user->email = 'test@test.com';
+        $user->password = '$2y$10$TeS8nBRn3n5vVmDDIeH3ouFFkcv8bytepJTHKguiekZ4KuvuavxoC'; // 12345678
+        $user->save();
+
+        $input['email'] = 'test123@test.com';
+        $input['password'] = '12345678';
+        
+        $response = $this->json('POST', '/api/v1/signin', $input);
+        
+        $response->assertStatus(401);
+
+        $user->delete();
+    }
 }
