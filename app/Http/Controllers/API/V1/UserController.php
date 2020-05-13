@@ -79,7 +79,7 @@ class UserController extends Controller
         return response()->json($res, 200);
     }
 
-    public function signin(Request $request)
+    public function signin()
     {
         // Attempt to login using web auth guard
         if (auth()->attempt(['email' => request('email'), 'password' => request('password')])) {
