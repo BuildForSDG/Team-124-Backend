@@ -12,17 +12,26 @@ class SigninTest extends TestCase
 
     public function testSigninFailsIfPOSTDataIsNotSent()
     {
-        $response = $this->json('POST', '/api/v1/signup', []);
+        $response = $this->json('POST', '/api/v1/signin', []);
         
-        $response->assertStatus(422);
+        $response->assertStatus(401);
     }
 
     public function testSigninFailsIfEmailIsNotSent()
     {
         $input['password'] = '12345678';
+
+        $response = $this->json('POST', '/api/v1/signin', $input);
         
-        $response = $this->json('POST', '/api/v1/signup', $input);
+        $response->assertStatus(401);
+    }
+
+    public function testSigninFailsIfPasswordIsNotSent()
+    {
+        $input['email'] = 'test@test.com';
         
-        $response->assertStatus(422);
+        $response = $this->json('POST', '/api/v1/signin', $input);
+        
+        $response->assertStatus(401);
     }
 }
