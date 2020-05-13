@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -23,7 +24,7 @@ class SignupTest extends TestCase
             'last_name' => 'Test',
             'address' => 'Test',
             'street_name' => 'Test',
-            'meter_No' => 1,
+            'meter_No' => '1',
             'email' => 'test@test.com',
             'password' => '12345678'
         ];
@@ -39,7 +40,7 @@ class SignupTest extends TestCase
             'first_name' => 'Test',
             'address' => 'Test',
             'street_name' => 'Test',
-            'meter_No' => 1,
+            'meter_No' => '1',
             'email' => 'test@test.com',
             'password' => '12345678'
         ];
@@ -55,7 +56,7 @@ class SignupTest extends TestCase
             'first_name' => 'Test',
             'last_name' => 'Test',
             'street_name' => 'Test',
-            'meter_No' => 1,
+            'meter_No' => '1',
             'email' => 'test@test.com',
             'password' => '12345678'
         ];
@@ -71,7 +72,7 @@ class SignupTest extends TestCase
             'first_name' => 'Test',
             'last_name' => 'Test',
             'address' => 'Test',
-            'meter_No' => 1,
+            'meter_No' => '1',
             'email' => 'test@test.com',
             'password' => '12345678'
         ];
@@ -104,7 +105,7 @@ class SignupTest extends TestCase
             'last_name' => 'Test',
             'address' => 'Test',
             'street_name' => 'Test',
-            'meter_No' => 1,
+            'meter_No' => '1',
             'email' => 'test@test.com',
         ];
 
@@ -120,7 +121,7 @@ class SignupTest extends TestCase
             'last_name' => 'Test',
             'address' => 'Test',
             'street_name' => 'Test',
-            'meter_No' => 1,
+            'meter_No' => '1',
             'email' => 'test@test.com',
             'password' => '123456',
         ];
@@ -137,12 +138,40 @@ class SignupTest extends TestCase
             'last_name' => 'Test',
             'address' => 'Test',
             'street_name' => 'Test',
-            'meter_No' => 1,
+            'meter_No' => '1',
             'password' => '12345678',
         ];
 
         $response = $this->json('POST', '/api/v1/signup', $input);
         
         $response->assertStatus(400);
+    }
+    
+    public function testSignupAPIFailsIfEmailAlreadyExist()
+    {
+        $user = User::create([
+            'first_name' => 'Test',
+            'last_name' => 'Test',
+            'address' => 'Test',
+            'street_name' => 'Test',
+            'meter_No' => '1',
+            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm',
+            'email' => 'test@test.com',
+        ]);
+
+        $input = [
+            'first_name' => 'Test',
+            'last_name' => 'Test',
+            'address' => 'Test',
+            'street_name' => 'Test',
+            'meter_No' => '1',
+            'password' => '12345678',
+            'email' => 'test@test.com',
+        ];
+
+        $response = $this->json('POST', '/api/v1/signup', $input);
+        
+        $response->assertStatus(400);
+        $user->delete();
     }
 }
