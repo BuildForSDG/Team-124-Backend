@@ -85,7 +85,6 @@ class UserController extends Controller
         if (auth()->attempt(['email' => request('email'), 'password' => request('password')])) {
             // If it succeeds generate and return api token
             $user = auth()->user();
-            $userId = $user->id;
             
             $res['id'] = $user->id;
             $res['first_name'] = $user->first_name;
