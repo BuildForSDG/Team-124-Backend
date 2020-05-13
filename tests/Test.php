@@ -1,6 +1,8 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
+namespace Tests;
+
+use Tests\TestCase;
 
 class Test extends TestCase
 {
@@ -10,6 +12,6 @@ class Test extends TestCase
      */
     public function sampleTestCase()
     {
-        $this->assertIsBool(true);
+        $this->assertTrue(true);
     }
 }
