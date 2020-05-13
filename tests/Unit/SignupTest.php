@@ -11,13 +11,6 @@ class SignupTest extends TestCase
 {
     use RefreshDatabase;
     
-    public function testSignupAPIFailsIfNoPostDataIsNotSent()
-    {
-        $response = $this->json('POST', '/api/v1/signup',[]);
-        
-        $response->assertStatus(400);
-    }
-    
     public function testSignupAPIFailsIfFirstNameIsNotSent()
     {
         $input = [
