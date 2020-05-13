@@ -38,7 +38,7 @@ class UserController extends Controller
             'string',
             'max:255',
           ],
-          'meter_No' => [
+          'meter_no' => [
             'required',
             'string',
             'max:255',
@@ -61,7 +61,7 @@ class UserController extends Controller
           'last_name' => $request['last_name'],
           'address' => $request['address'],
           'street_name' => $request['street_name'],
-          'meter_No' => $request['meter_No'],
+          'meter_no' => $request['meter_no'],
         ];
 
         $this->user['password'] = bcrypt($request['password']);
@@ -70,12 +70,32 @@ class UserController extends Controller
         $this->user['last_name'] = $request['last_name'];
         $this->user['address'] = $request['address'];
         $this->user['street_name'] = $request['street_name'];
-        $this->user['meter_No'] = $request['meter_No'];
+        $this->user['meter_no'] = $request['meter_no'];
 
         $this->user->save();
         $res['id'] = $this->user->id;
         $res['token'] = $this->user->createToken('web-ui-api')->accessToken;
 
         return response()->json($res, 200);
+    }
+
+    public function signin()
+    {
+        // Attempt to login using web auth guard
+        if (auth()->attempt(['email' => request('email'), 'password' => request('password')])) {
+            // If it succeeds generate and return api token
+            $user = auth()->user();
+            
+            $res['id'] = $user->id;
+            $res['first_name'] = $user->first_name;
+            $res['last_name'] = $user->last_name;
+            $res['email'] = $user->email;
+            $res['meter_no'] = $user->meter_no;
+            $res['token'] = $user->createToken('web-ui-api')->accessToken;
+
+            return response()->json($res, 200);
+        }
+
+        return response()->json(['error' => 'Incorrect email and password'], 401);
     }
 }
